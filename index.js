@@ -27,24 +27,29 @@ app.get("/", function (req, res) {
 
 app.get('/api/:date?',(req,res) => {
 
-  const date = new Date(Date.now())
-
-  const info = [
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-    date.getHours(),
-    date.getMinutes(),
-    date.getSeconds(),
-    date.getMilliseconds()
-  ]
-
+  const params = req.params
   
+  var date;
 
-  res.json({
-    unix:Math.floor(date / 1000),
-    utc:info.join(' ')
-  })
+  if (params.date) {
+    date = new Date(params.date)
+  } else {
+    date = new Date(Date.now())
+  }
+
+  if (isNaN(date.getTime())) {
+    res.json(
+      { error : "Invalid Date" }
+    )
+  }
+  else {
+    res.json({
+      unix:date.getTime(),
+      utc:date.toUTCString()
+    })
+  }
+  
+  
 })
 
 
