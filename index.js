@@ -27,10 +27,24 @@ app.get("/", function (req, res) {
 
 app.get('/api/:date?',(req,res) => {
 
+  const date = new Date(Date.now())
 
-  console.req.body
+  const info = [
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    date.getHours(),
+    date.getMinutes(),
+    date.getSeconds(),
+    date.getMilliseconds()
+  ]
 
+  
 
+  res.json({
+    unix:Math.floor(date / 1000),
+    utc:info.join(' ')
+  })
 })
 
 
