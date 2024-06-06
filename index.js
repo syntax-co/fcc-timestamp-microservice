@@ -30,16 +30,25 @@ app.get('/api/:date?',(req,res) => {
   const params = req.params
   
 
-  var date;
+  var date = new Date(params.date);
 
   if (params.date) {
 
 
-    if (params.date.length>10) {
-      date = new Date(parseInt(params.date))
-    } 
-    else {
+    const isString = isNaN(parseInt(params.date))
+    
+    if (isString) {
+
       date = new Date(params.date)
+      console.log(params.date)
+    }
+    else {
+      if (params.date.length>10) {
+        date = new Date(parseInt(params.date))
+      } 
+      else {
+        date = new Date(params.date)
+      }
     }
     
 
@@ -47,6 +56,10 @@ app.get('/api/:date?',(req,res) => {
   } else {
     date = new Date(Date.now())
   }
+
+  
+
+  
 
   if (isNaN(date.getTime())) {
     res.json(
