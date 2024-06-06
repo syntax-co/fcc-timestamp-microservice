@@ -39,16 +39,16 @@ app.get('/api/:date?',(req,res) => {
 
 
 
-  // ##################
-  const params = req.params
-  
+
   var date = new Date(req.params.date);
 
   if (req.params.date) {
 
-    if (isInt(req.params.date)) {
+    
+
+    if (isInt(req.params.date) && !validDate(date)) {
       date = new Date(parseInt(req.params.date))
-    }
+    } 
 
 
     if (!validDate(date)) {
