@@ -29,10 +29,16 @@ app.get('/api/:date?',(req,res) => {
 
   const params = req.params
   
+
   var date;
 
   if (params.date) {
-    date = new Date(params.date)
+
+    if (params.date.length>10) {
+      date = new Date(Math.floor(parseInt(params.date)/1000))
+    } else {
+      date = new Date(params.date)
+    }
   } else {
     date = new Date(Date.now())
   }
